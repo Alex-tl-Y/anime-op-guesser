@@ -32,7 +32,7 @@ socket.on("scoreboard", (allUsers) => {
 
   allUsers.forEach((element) => {
     const indvidualScore = document.createElement('li');
-    indvidualScore.textContent = element.name;
+    indvidualScore.textContent = element.name + " " + element.score;
     scores.appendChild(indvidualScore);
   })
 

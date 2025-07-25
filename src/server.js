@@ -43,6 +43,12 @@ io.on("connection", (socket) => {
   socket.on("guess", (guess) => {
     io.to("playing round").emit("guess", guess);
     if (guess === "1") {
+      allUsers.forEach((user) => {
+        if (socket.id === user.id){
+          user.score += 1;
+        }
+      })
+      io.to("playing round").emit("scoreboard", allUsers);
       io.to("playing round").emit("correct", "correct");
     }
   })

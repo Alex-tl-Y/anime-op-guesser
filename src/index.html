@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the Anime Opening</title>
+  </head>
+  <body>
+    <div id = "App">
+      
+      <div id = "Scoreboard">
+        <ul id = "scores"></ul>
+      </div>
+
+      <div id = "chat">
+        <ul id = "chat history"></ul>
+        
+        <input placeholder = "guess" id = "userGuess">
+        <button onclick = "guess()">Submit</button>
+  
+
+      </div>
+      
+    </div>
+
+    
+     <script src="/socket.io/socket.io.js"></script>
+     <script src = "index.js"></script>
+  </body>
+
+
+</html>

@@ -5,25 +5,33 @@
     <link rel = "stylesheet" href = index.css>
   </head>
   <body>
-    <div id = "App">
+    <div id = "app">
       
-      <div id = "Scoreboard">
+      <div id = "scoreboard">
         <ul id = "scores"></ul>
       </div>
 
       <div id = "chat">
         <ul id = "chat history"></ul>
         
-        <input placeholder = "guess" id = "userGuess">
+        <input placeholder = "guess" id = "user guess">
         <button onclick = "guess()">Submit</button>
   
-
       </div>
+      
+      <div id = "timer"></div>
+
+      <div id = "start game">
+        <button onclick = "startGame()">Start Game!</button>
+      </div>
+
+      <div id = "embeded song"></div>
       
     </div>
 
     
      <script src="/socket.io/socket.io.js"></script>
+     <script src= "songlist.js"></script>
      <script src = "index.js"></script>
   </body>
 

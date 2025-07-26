@@ -9,6 +9,7 @@ class User {
   name = undefined;
   id = undefined;
   score = 0;
+  isHost = true;
 
   constructor(name, id) {
     this.name = name;
@@ -18,6 +19,7 @@ class User {
 
 
 let allUsers = [];
+let playedSongs = [];
 
 const app = express();
 const server = createServer(app);
@@ -52,6 +54,17 @@ io.on("connection", (socket) => {
       io.to("playing round").emit("correct", "correct");
     }
   })
+
+  socket.on("start game", () => {
+    allUsers.forEach((user) => {
+      if (socket.id === user.id){
+        if (user.isHost){
+          io.to("playing round").emit("start game");
+        }
+      }
+    })
+  })
+
 })
 server.listen(3000, () => {
   console.log('server running at http://localhost:3001');

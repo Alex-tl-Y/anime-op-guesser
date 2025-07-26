@@ -1,4 +1,4 @@
-const songList = [{
+export const songList = [{
   name: 'Frieren',
   songLink: 'https://www.youtube.com/embed/QoGM9hCxr4k?si=FStuwkSCk9XpxWvZ'
 },

@@ -11,6 +11,7 @@ const loginDiv = ` <form id = "user data">
 const mainScreen = document.getElementById('app');
 const playScreenHTML = mainScreen.innerHTML;
 
+
 // Listener when user enters their username and joins the game 
 mainScreen.innerHTML = loginDiv;
 
@@ -54,10 +55,38 @@ socket.on("guess", (message) => {
   chatHistory.appendChild(chatMessage);
 })
 
-socket.on("start game", () => {
+socket.on("start game screen", () => {
   const startButton = document.getElementById("start game");
   startButton.innerHTML = ""; 
+})
+
+socket.on("start game", () => {
+  roundsStart();
+})
+
+socket.on("play music", (song) => {
+  let frame = document.getElementById('embeded song');
+  frame.innerHTML = `<iframe width="0" height="0" src="${song.songLink}&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+})
+
+socket.on("stop music", () => {
+  let frame = document.getElementById('embeded song');
+
+  frame.innerHTML = '';
+})
+
+socket.on("round start", (roundNumber) => {
+  document.getElementById("round number").innerHTML = roundNumber;
   playMusic();
+  timerCountdown();
+})
+
+socket.on("round end", () => {
+  roundsStart();
+})
+
+socket.on("timer countdown", (sec) => {
+  document.getElementById("timer display").innerHTML = sec;
 })
 
 // Listener for the chatting feature
@@ -76,17 +105,14 @@ function startGame() {
   socket.emit("start game");
 }
 
-function startRound() {
-  
+function roundsStart() {
+  socket.emit("round start");
 }
 
 function playMusic() {
-  // Picks a random song
-  const randomNumber = Math.floor(Math.random() * songList.length);
+  socket.emit("play music");
+}
 
-  let song = songList[randomNumber];
-  
-  // Plays the song
-  let frame = document.getElementById('embeded song');
-  frame.innerHTML = `<iframe width="0" height="0" src="${song.songLink}&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+function timerCountdown() {
+  socket.emit("timer countdown");
 }

@@ -2,7 +2,7 @@ const socket = io();
 
 let isPlaying = false;
 
-const loginDiv = ` <form id = "user data">
+const loginDiv = ` <form id = "user-data">
         <input id = "username" placeholder = "Enter Username">
         <button > Enter </button>
 
@@ -15,7 +15,7 @@ const playScreenHTML = mainScreen.innerHTML;
 // Listener when user enters their username and joins the game 
 mainScreen.innerHTML = loginDiv;
 
-const userData = document.getElementById("user data");
+const userData = document.getElementById("user-data");
 const username = document.getElementById('username');
 
 userData.addEventListener('submit', (e) => {
@@ -41,10 +41,10 @@ socket.on("scoreboard", (allUsers) => {
 
 })
 
-socket.on("correct", (answer) => {
+socket.on("correct", (username) => {
     let chatHistory = document.getElementById("chat history");
     const guessResult = document.createElement('li');
-    guessResult.textContent = answer;
+    guessResult.textContent = username + " is correct";
     chatHistory.appendChild(guessResult);
 })
 
@@ -76,7 +76,7 @@ socket.on("stop music", () => {
 })
 
 socket.on("round start", (roundNumber) => {
-  document.getElementById("round number").innerHTML = roundNumber;
+  document.getElementById("round-number").innerHTML = "Round" + " " + roundNumber;
   playMusic();
   timerCountdown();
 })
@@ -86,13 +86,13 @@ socket.on("round end", () => {
 })
 
 socket.on("timer countdown", (sec) => {
-  document.getElementById("timer display").innerHTML = sec;
+  document.getElementById("timer-display").innerHTML = sec;
 })
 
 // Listener for the chatting feature
 function guess() {
 
-  const userGuess = document.getElementById("user guess");
+  const userGuess = document.getElementById("user-guess");
   if (userGuess.value) {
     socket.emit('guess', userGuess.value);
   }

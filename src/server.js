@@ -22,9 +22,9 @@ class User {
 
 let allUsers = [];
 let chosenSong = '';
-let playedSongs = [];
 let round = 0;
 let isPlaying = false;
+let correctUsers = [];
 
 const app = express();
 const server = createServer(app);
@@ -55,15 +55,19 @@ io.on("connection", (socket) => {
   })
 
   socket.on("guess", (guess) => {
-    io.to("playing round").emit("guess", guess);
-    if (guess === chosenSong) {
+    if (guess.toUpperCase() === chosenSong.toUpperCase()) {
       allUsers.forEach((user) => {
-        if (socket.id === user.id){
+        if (socket.id === user.id && !correctUsers.includes(user)){
           user.score += 1;
+          correctUsers.push(user);
+          io.to("playing round").emit("scoreboard", allUsers);
+          io.to("playing round").emit("correct", user.name);
         }
       })
-      io.to("playing round").emit("scoreboard", allUsers);
-      io.to("playing round").emit("correct", "correct");
+    }
+
+    else{
+      io.to("playing round").emit("guess", guess);
     }
   })
 
@@ -87,7 +91,7 @@ io.on("connection", (socket) => {
 
           let song = songList[randomNumber];
           
-          chosenSong = song;
+          chosenSong = song.name;
 
           io.to("playing round").emit("play music", song);        
         }
@@ -99,11 +103,11 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          let sec = 10;
+          let sec = 30;
           let timer = setInterval(() => {
             io.to("playing round").emit("timer countdown", sec);
             sec --;
-            if (sec < 0) {
+            if (sec < 0 || correctUsers.length === allUsers.length) {
               clearInterval(timer);
               io.to("playing round").emit("stop music");
               io.to("playing round").emit("round end");
@@ -119,6 +123,7 @@ io.on("connection", (socket) => {
       if (socket.id === user.id){
         if (user.isHost){
           if (round < 5){
+            correctUsers = [];
             round ++;
             io.to("playing round").emit("round start", round);
           }

@@ -1,7 +1,26 @@
 #scoreboard {
   float: left;
+  flex: 1;
 }
 
 #chat {
   float: right;
+  flex: 1;
+}
+
+#game-information {
+  height: 20%;
+}
+
+#bottom-half {
+  display: flex;
+  flex: 1;
+}
+
+#round-number {
+  display: inline;
+}
+
+#timer-display {
+  display: inline;
 }

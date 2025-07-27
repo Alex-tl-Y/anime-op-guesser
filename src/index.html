@@ -6,22 +6,24 @@
   </head>
   <body>
     <div id = "app">
-      
-      <div id = "scoreboard">
-        <ul id = "scores"></ul>
+     
+      <div id = "game-information">
+        <p id = "round-number"></p>
+        <p id = "timer-display"></p>
       </div>
+      
+      <div id = "bottom-half">
+        <div id = "scoreboard">
+          <ul id = "scores"></ul>
+        </div>
 
-      <div id = "chat">
-        <ul id = "chat history"></ul>
-        
-        <input placeholder = "guess" id = "user guess">
-        <button onclick = "guess()">Submit</button>
-  
-      </div>
-      
-      <div id = "game information">
-        <p id = "round number"></p>
-        <p id = "timer display"></p>
+        <div id = "chat">
+          <ul id = "chat history"></ul>
+          
+          <input placeholder = "guess" id = "user-guess">
+          <button onclick = "guess()">Submit</button>
+    
+        </div>  
       </div>
 
       <div id = "start game">

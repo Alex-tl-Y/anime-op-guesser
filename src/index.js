@@ -46,6 +46,7 @@ socket.on("correct", (username) => {
     const guessResult = document.createElement('li');
     guessResult.textContent = username + " is correct";
     chatHistory.appendChild(guessResult);
+
 })
 
 socket.on("guess", (message) => {
@@ -56,7 +57,7 @@ socket.on("guess", (message) => {
 })
 
 socket.on("start game screen", () => {
-  document.getElementById("restart").innerHTML = "";
+  document.getElementById("middle-section").innerHTML = "";
   const startButton = document.getElementById("start game");
   startButton.innerHTML = ""; 
 })
@@ -65,9 +66,10 @@ socket.on("start game", () => {
   roundsStart();
 })
 
-socket.on("play music", (song) => {
+socket.on("play music", (song, underscoreName) => {
   let frame = document.getElementById('embeded song');
   frame.innerHTML = `<iframe width="0" height="0" src="${song.songLink}&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+  document.getElementById("letter-hint").innerHTML = underscoreName;
 })
 
 socket.on("stop music", () => {
@@ -84,6 +86,10 @@ socket.on("round start", (roundNumber) => {
 
 socket.on("round end", () => {
   roundsStart();
+})
+
+socket.on("revealed-answer", (chosenSong) => {
+  document.getElementById("letter-hint").innerHTML = chosenSong;
 })
 
 socket.on("timer countdown", (sec) => {

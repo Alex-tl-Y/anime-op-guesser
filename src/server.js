@@ -62,6 +62,7 @@ io.on("connection", (socket) => {
           correctUsers.push(user);
           io.to("playing round").emit("scoreboard", allUsers);
           io.to("playing round").emit("correct", user.name);
+          io.to(socket.id).emit("revealed-answer", chosenSong);
         }
       })
     }
@@ -73,8 +74,8 @@ io.on("connection", (socket) => {
 
   socket.on("start game", () => {
     allUsers.forEach((user) => {
-      if (socket.id === user.id){
-        if (user.isHost){
+      if (socket.id === user.id) {
+        if (user.isHost) {
           isPlaying = true;
           io.to("playing round").emit("start game screen");
           io.to(socket.id).emit('start game');
@@ -93,7 +94,20 @@ io.on("connection", (socket) => {
           
           chosenSong = song.name;
 
-          io.to("playing round").emit("play music", song);        
+          // Display the name of the song with underscores
+          
+          let underscoreName = '';
+
+          for (let i = 0; i < chosenSong.length; i ++) {
+            if (chosenSong.charAt(i) !== " ") {
+              underscoreName += "_ ";
+            }
+            else {
+              underscoreName += "\u00A0\u00A0\u00A0";
+            }
+          }
+
+          io.to("playing round").emit("play music", song, underscoreName);        
         }
       }
     })
@@ -103,7 +117,7 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          let sec = 5;
+          let sec = 30;
           let timer = setInterval(() => {
             io.to("playing round").emit("timer countdown", sec);
             sec --;

@@ -56,6 +56,7 @@ socket.on("guess", (message) => {
 })
 
 socket.on("start game screen", () => {
+  document.getElementById("restart").innerHTML = "";
   const startButton = document.getElementById("start game");
   startButton.innerHTML = ""; 
 })
@@ -89,30 +90,53 @@ socket.on("timer countdown", (sec) => {
   document.getElementById("timer-display").innerHTML = sec;
 })
 
+socket.on("game over", () => {
+  document.getElementById("middle-section").innerHTML = `<button id = "restart" onclick = "restart()">Play Again</button>`;
+})
+
 // Listener for the chatting feature
 function guess() {
 
   const userGuess = document.getElementById("user-guess");
   if (userGuess.value) {
     socket.emit('guess', userGuess.value);
+    userGuess.value = '';
   }
 
 }
 
-// Listener to start the game
+function guess2(event) {
+  
+  const userGuess = document.getElementById("user-guess");
+  if (userGuess.value && event.key == "Enter") {
+    socket.emit('guess', userGuess.value)
+    userGuess.value = '';
+  }
+}
 
+// Listener to start the game
 function startGame() {
   socket.emit("start game");
 }
 
+// Listener to start the rounds
 function roundsStart() {
   socket.emit("round start");
 }
 
+// Listener to play music
 function playMusic() {
   socket.emit("play music");
 }
 
+// Listener to start the timer
 function timerCountdown() {
   socket.emit("timer countdown");
+}
+
+// Listener to restart the game
+
+function restart() {
+  socket.emit("restart");
+  
 }

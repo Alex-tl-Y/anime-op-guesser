@@ -103,7 +103,7 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          let sec = 30;
+          let sec = 5;
           let timer = setInterval(() => {
             io.to("playing round").emit("timer countdown", sec);
             sec --;
@@ -129,9 +129,34 @@ io.on("connection", (socket) => {
           }
 
           else{
-            io.to("playing round").emit("game over");
+            io.to("playing round").emit("game over", allUsers);
           }         
         }
+      }
+    })
+  })
+
+  socket.on("restart", () => {
+      allUsers.forEach((user) => {
+        user.score = 0;
+        if (socket.id === user.id){
+          if (user.isHost){
+            round = 0;
+            correctUsers = [];
+            
+            io.to("playing round").emit("scoreboard", allUsers);
+            io.to("playing round").emit("start game screen");
+            io.to(socket.id).emit('start game');
+          }
+        }
+    })
+  })
+
+  socket.on("disconnect", () => {
+    allUsers.forEach((user) => {
+      if (socket.id === user.id) {
+        allUsers = allUsers.filter(element => element !== user);
+        io.to("playing round").emit("scoreboard", allUsers);
       }
     })
   })

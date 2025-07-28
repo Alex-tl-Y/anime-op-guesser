@@ -12,6 +12,10 @@
         <p id = "timer-display"></p>
       </div>
       
+      <div id = "middle-section">
+
+      </div>
+      
       <div id = "bottom-half">
         <div id = "scoreboard">
           <ul id = "scores"></ul>
@@ -20,7 +24,7 @@
         <div id = "chat">
           <ul id = "chat history"></ul>
           
-          <input placeholder = "guess" id = "user-guess">
+          <input placeholder = "guess" id = "user-guess" onkeydown="guess2(event)">
           <button onclick = "guess()">Submit</button>
     
         </div>  

@@ -49,10 +49,10 @@ socket.on("correct", (username) => {
 
 })
 
-socket.on("guess", (message) => {
+socket.on("guess", (message, username) => {
   let chatHistory = document.getElementById("chat history");
   const chatMessage = document.createElement('li');
-  chatMessage.textContent = message;
+  chatMessage.textContent = username + ": " + message;
   chatHistory.appendChild(chatMessage);
 })
 
@@ -63,6 +63,16 @@ socket.on("start game screen", () => {
 })
 
 socket.on("start game", () => {
+  roundTransitions();
+})
+
+socket.on("round-transitions", (loadingSong) => {
+  document.getElementById("middle-section").innerHTML = loadingSong;
+
+})
+
+socket.on("finished-round-transitions", () => {
+  document.getElementById("middle-section").innerHTML = "";
   roundsStart();
 })
 
@@ -85,14 +95,14 @@ socket.on("round start", (roundNumber) => {
 })
 
 socket.on("round end", () => {
-  roundsStart();
+  roundTransitions();
 })
 
 socket.on("revealed-answer", (chosenSong) => {
   document.getElementById("letter-hint").innerHTML = chosenSong;
 })
 
-socket.on("timer countdown", (sec) => {
+socket.on("timer-countdown", (sec) => {
   document.getElementById("timer-display").innerHTML = sec;
 })
 
@@ -137,9 +147,12 @@ function playMusic() {
 
 // Listener to start the timer
 function timerCountdown() {
-  socket.emit("timer countdown");
+  socket.emit("timer-countdown");
 }
 
+function roundTransitions() {
+  socket.emit("round-transitions");
+}
 // Listener to restart the game
 
 function restart() {

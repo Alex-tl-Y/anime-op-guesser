@@ -55,21 +55,23 @@ io.on("connection", (socket) => {
   })
 
   socket.on("guess", (guess) => {
-    if (guess.toUpperCase() === chosenSong.toUpperCase()) {
-      allUsers.forEach((user) => {
-        if (socket.id === user.id && !correctUsers.includes(user)){
+    allUsers.forEach((user) => {
+      if (socket.id === user.id && !correctUsers.includes(user)){
+        if (guess.toUpperCase() === chosenSong.toUpperCase()) {
           user.score += 1;
           correctUsers.push(user);
           io.to("playing round").emit("scoreboard", allUsers);
           io.to("playing round").emit("correct", user.name);
           io.to(socket.id).emit("revealed-answer", chosenSong);
-        }
-      })
-    }
+        } 
 
-    else{
-      io.to("playing round").emit("guess", guess);
-    }
+        else{
+          io.to("playing round").emit("guess", guess, user.name);
+        }
+
+      }
+    })
+
   })
 
   socket.on("start game", () => {
@@ -113,13 +115,13 @@ io.on("connection", (socket) => {
     })
   })
 
-  socket.on("timer countdown", () => {
+  socket.on("timer-countdown", () => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          let sec = 30;
+          let sec = 25;
           let timer = setInterval(() => {
-            io.to("playing round").emit("timer countdown", sec);
+            io.to("playing round").emit("timer-countdown", sec);
             sec --;
             if (sec < 0 || correctUsers.length === allUsers.length) {
               clearInterval(timer);
@@ -145,6 +147,26 @@ io.on("connection", (socket) => {
           else{
             io.to("playing round").emit("game over", allUsers);
           }         
+        }
+      }
+    })
+  })
+
+  socket.on("round-transitions", () => {
+    allUsers.forEach((user) => {
+      if (socket.id === user.id){
+        if (user.isHost){
+          io.to("playing round").emit("round-transitions", "Loading Song ...");
+          let sec = 4;
+          let timer = setInterval(() => {
+            io.to("playing round").emit("timer-countdown", sec);
+            sec --;
+
+            if (sec < 0) {
+              clearInterval(timer);
+              io.to(socket.id).emit("finished-round-transitions");
+            }
+          }, 1000)
         }
       }
     })

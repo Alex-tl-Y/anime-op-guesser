@@ -35,25 +35,26 @@ socket.on("scoreboard", (allUsers) => {
 
   allUsers.forEach((element) => {
     const indvidualScore = document.createElement('li');
-    indvidualScore.textContent = element.name + " " + element.score;
+    indvidualScore.textContent = element.name + " Score: " + element.score;
     scores.appendChild(indvidualScore);
   })
 
 })
 
 socket.on("correct", (username) => {
-    let chatHistory = document.getElementById("chat history");
+    let chatHistory = document.getElementById("chat-history");
     const guessResult = document.createElement('li');
     guessResult.textContent = username + " is correct";
     chatHistory.appendChild(guessResult);
-
+    chatHistory.scrollTop = chatHistory.scrollHeight;
 })
 
 socket.on("guess", (message, username) => {
-  let chatHistory = document.getElementById("chat history");
+  let chatHistory = document.getElementById("chat-history");
   const chatMessage = document.createElement('li');
   chatMessage.textContent = username + ": " + message;
   chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 })
 
 socket.on("start game screen", () => {

@@ -2,11 +2,15 @@ const socket = io();
 
 let isPlaying = false;
 
-const loginDiv = ` <form id = "user-data">
-        <input id = "username" placeholder = "Enter Username">
-        <button > Enter </button>
+const loginDiv = ` 
+    <div id = "login">
+      <form id = "user-data">
+        <input id = "username" placeholder = "Enter Username" autocomplete = "off">
+        <button id = "enter"> Enter </button>
 
-      </form>`
+      </form>
+    </div>
+    `;
 
 const mainScreen = document.getElementById('app');
 const playScreenHTML = mainScreen.innerHTML;
@@ -17,14 +21,25 @@ mainScreen.innerHTML = loginDiv;
 
 const userData = document.getElementById("user-data");
 const username = document.getElementById('username');
+const enterButton = document.getElementById("enter");
 
 userData.addEventListener('submit', (e) => {
   e.preventDefault();
   if (username.value) {
     mainScreen.innerHTML = playScreenHTML;
     socket.emit('scoreboard', username.value);
+
+    let sfx = new Audio ("/sfx/select.ogg");
+    sfx.play();
     
   }
+})
+
+enterButton.addEventListener("mouseenter", (e) => {
+  e.preventDefault();
+  let sfx = new Audio ("/sfx/hover.ogg");
+  sfx.play();
+
 })
 
 socket.on("scoreboard", (allUsers) => {
@@ -35,7 +50,7 @@ socket.on("scoreboard", (allUsers) => {
 
   allUsers.forEach((element) => {
     const indvidualScore = document.createElement('li');
-    indvidualScore.textContent = element.name + " Score: " + element.score;
+    indvidualScore.textContent = "# " + element.position + "\u00A0\u00A0"+ element.name + " \n Score: " + element.score;
     scores.appendChild(indvidualScore);
   })
 
@@ -44,9 +59,34 @@ socket.on("scoreboard", (allUsers) => {
 socket.on("correct", (username) => {
     let chatHistory = document.getElementById("chat-history");
     const guessResult = document.createElement('li');
+    guessResult.style.background = 'lightgreen';
     guessResult.textContent = username + " is correct";
     chatHistory.appendChild(guessResult);
     chatHistory.scrollTop = chatHistory.scrollHeight;
+    
+    let sfx = new Audio ("/sfx/correct-sound.mp3");
+    sfx.play();
+})
+
+socket.on("green-scoreboard", (user) => {
+  const scoreboard = document.getElementById("scoreboard");
+  const listItems = scoreboard.querySelectorAll("li");
+
+  listItems.forEach((li) => {
+    if (li.textContent.includes(user.name)) {
+      li.style.background = 'lightgreen';
+    }
+  })
+
+})
+
+socket.on("join-message", (username) => {
+  let chatHistory = document.getElementById("chat-history");
+  const chatMessage = document.createElement("li");
+  chatMessage.textContent = username + " joined the game!";
+  chatMessage.style.color = "lightgreen";
+  chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 })
 
 socket.on("guess", (message, username) => {
@@ -57,9 +97,14 @@ socket.on("guess", (message, username) => {
   chatHistory.scrollTop = chatHistory.scrollHeight;
 })
 
+socket.on("allow-start", () => {
+  const startButton = document.getElementById("start-button")
+  startButton.id = "host-start-button";
+})
+
 socket.on("start game screen", () => {
-  document.getElementById("middle-section").innerHTML = "";
-  const startButton = document.getElementById("start game");
+  document.getElementById("start-game").innerHTML = "";
+  const startButton = document.getElementById("start-game");
   startButton.innerHTML = ""; 
 })
 
@@ -67,13 +112,22 @@ socket.on("start game", () => {
   roundTransitions();
 })
 
-socket.on("round-transitions", (loadingSong) => {
-  document.getElementById("middle-section").innerHTML = loadingSong;
+socket.on("round-transitions", (allUsers, firstTransition) => {
+  if (!firstTransition) {
+    allUsers.forEach((element) => {
+      document.getElementById("scores-from-round").innerHTML += `<p>${element.name} : + ${element.score_from_round}</p>`;
+  })
+  }
+  document.getElementById("status-message").innerHTML = `<p id = "status-message">Loading Song ...<p>`;
 
 })
 
+socket.on("finished-round-transitions-screen", () => {
+  document.getElementById("status-message").innerHTML = "";  
+  document.getElementById("scores-from-round").innerHTML = "";
+})
+
 socket.on("finished-round-transitions", () => {
-  document.getElementById("middle-section").innerHTML = "";
   roundsStart();
 })
 
@@ -108,7 +162,7 @@ socket.on("timer-countdown", (sec) => {
 })
 
 socket.on("game over", () => {
-  document.getElementById("middle-section").innerHTML = `<button id = "restart" onclick = "restart()">Play Again</button>`;
+  document.getElementById("start-game").innerHTML = `<button id = "restart" onclick = "restart()">Play Again</button>`;
 })
 
 // Listener for the chatting feature

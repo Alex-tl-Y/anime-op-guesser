@@ -12,11 +12,38 @@ class User {
   id = undefined;
   score = 0;
   isHost = false;
+  position = 1;
+  score_from_round = 0;
 
   constructor(name, id) {
     this.name = name;
     this.id = id;
   }
+  
+  getName () {
+    return this.name;
+  }
+
+  getID () {
+    return this.id;
+  }
+
+  getScore () {
+    return this.score;
+  }
+
+  getIsHost () {
+    return this.isHost;
+  }
+
+  getPostion () {
+    return this.position;
+  }
+
+  getScoreFromRound () {
+    return this.score_from_round;
+  }
+
 }
 
 
@@ -33,6 +60,7 @@ const io = new Server(server);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static('src'));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -43,11 +71,14 @@ io.on("connection", (socket) => {
     let user = new User (username, socket.id);
     if (allUsers.length === 0){
       user.isHost = true;
+      io.to(socket.id).emit("allow-start");
     }
+
     allUsers.push(user);
 
     socket.join("playing round");
     io.to("playing round").emit("scoreboard", allUsers);
+    io.to("playing round").emit("join-message", username)
 
     if (isPlaying) {
       io.to("playing round").emit("start game screen");
@@ -58,10 +89,11 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id && !correctUsers.includes(user)){
         if (guess.toUpperCase() === chosenSong.toUpperCase()) {
-          user.score += 1;
+          user.score += allUsers.length - correctUsers.length;
+          user.score_from_round = allUsers.length - correctUsers.length;
           correctUsers.push(user);
-          io.to("playing round").emit("scoreboard", allUsers);
           io.to("playing round").emit("correct", user.name);
+          io.to("playing round").emit("green-scoreboard", user);
           io.to(socket.id).emit("revealed-answer", chosenSong);
         } 
 
@@ -150,13 +182,31 @@ io.on("connection", (socket) => {
         }
       }
     })
+    allUsers.forEach((user) => {
+      user.score_from_round = 0;
+    })
   })
 
   socket.on("round-transitions", () => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          io.to("playing round").emit("round-transitions", "Loading Song ...");
+          sortPosition(allUsers);
+          io.to("playing round").emit("scoreboard", allUsers);
+          if (round == 0) {
+            io.to("playing round").emit("round-transitions", allUsers, true);
+          }
+
+          else if (0 < round && round < 5){
+            let sortedList = sortScoreFromRound(allUsers);
+            io.to("playing round").emit("round-transitions", sortedList, false);
+          }
+
+          else{
+            io.to("playing round").emit("game over", allUsers);
+            return;
+          }
+          
           let sec = 4;
           let timer = setInterval(() => {
             io.to("playing round").emit("timer-countdown", sec);
@@ -164,6 +214,7 @@ io.on("connection", (socket) => {
 
             if (sec < 0) {
               clearInterval(timer);
+              io.to("playing round").emit("finished-round-transitions-screen");
               io.to(socket.id).emit("finished-round-transitions");
             }
           }, 1000)
@@ -197,6 +248,40 @@ io.on("connection", (socket) => {
     })
   })
 })
+
+function sortScoreFromRound(userList) {
+  let sortedList = userList.slice();
+
+  for (let i = 0; i < sortedList.length; i ++) {
+    let largestIndex = i;
+    for (let j = i + 1; j < sortedList.length; j ++) {
+      if (sortedList[largestIndex].score_from_round < sortedList[j].score_from_round) {
+        largestIndex = j;
+      }
+    }
+    let largestValue = sortedList[largestIndex];
+    sortedList[largestIndex] = sortedList[i];
+    sortedList[i] = largestValue;
+  }
+
+  return sortedList;
+}
+
+function sortPosition(userList) {
+  let sortedList = sortScoreFromRound(userList);
+  let userPosition = 1;
+  sortedList[0].position = 1;
+  for (let i = 1; i < sortedList.length; i ++ ) {
+    if (sortedList[i - 1].score != sortedList[i].score) {
+      userPosition += 1;
+      sortedList[i].position = userPosition;
+    }
+
+    else {
+      sortedList[i].position = userPosition;
+    }
+  }
+}
 
 server.listen(3000, () => {
   console.log('server running at http://localhost:3001');

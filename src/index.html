@@ -10,6 +10,7 @@
       <div id = "game-information">
         <p id = "round-number"></p>
         <p id = "letter-hint"></p>
+        <img src = "/images/timer.jpg" id = "timer-image">
         <p id = "timer-display"></p>
       </div>
       
@@ -18,21 +19,23 @@
           <ul id = "scores"></ul>
         </div>
 
-        <div id = "middle-section"></div>
+        <div id = "middle-section">
+          <div id = "status-message"></div>
+          <div id = "scores-from-round"></div>
+          <div id = "start-game">
+            <button id = "start-button" onclick = "startGame()">Start Game!</button>
+          </div>
+        </div>
 
         <div id = "chat">
           <ul id = "chat-history"></ul>
           
           <div id = "send-message">
-            <input placeholder = "guess" id = "user-guess" onkeydown="guess2(event)">
+            <input placeholder = "Type your guess here..." id = "user-guess" onkeydown="guess2(event)">
             <button onclick = "guess()">Submit</button>
           </div>
     
         </div>  
-      </div>
-
-      <div id = "start game">
-        <button onclick = "startGame()">Start Game!</button>
       </div>
 
       <div id = "embeded song"></div>

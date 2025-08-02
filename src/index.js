@@ -80,6 +80,16 @@ socket.on("green-scoreboard", (user) => {
 
 })
 
+socket.on("already-correct", () => {
+  let chatHistory = document.getElementById("chat-history");
+  const chatMessage = document.createElement("li");
+  chatMessage.textContent = "You already guessed correctly!";
+  chatMessage.style.color = "darkyellow";
+  chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+
+})
+
 socket.on("join-message", (username) => {
   let chatHistory = document.getElementById("chat-history");
   const chatMessage = document.createElement("li");
@@ -161,8 +171,31 @@ socket.on("timer-countdown", (sec) => {
   document.getElementById("timer-display").innerHTML = sec;
 })
 
-socket.on("game over", () => {
-  document.getElementById("start-game").innerHTML = `<button id = "restart" onclick = "restart()">Play Again</button>`;
+socket.on("game over", (allUsers) => {
+  document.getElementById("start-game").innerHTML = `<button id = "start-button" onclick = "restart()">Start Game!</button>`;
+  allUsers.forEach((user) => {
+    if (user.position == 1) {
+      document.getElementById("scores-from-round").innerHTML += `<p> 1st Place (The KING): ${user.name}</p>`
+
+    }
+
+    else if (user.position == 2) {
+      document.getElementById("scores-from-round").innerHTML += `<p> 2nd Place (The QUEEN): ${user.name}</p>`
+    }
+
+    else if (user.position == 3) {
+      document.getElementById("scores-from-round").innerHTML += `<p> 3rd Place (The TENT): ${user.name}</p>`
+    }
+
+    else {
+      document.getElementById("scores-from-round").innerHTML += `<p> Short Bus Riders (The Village): ${user.name}</p>`
+    }
+  })
+})
+
+socket.on("game-over-host", (allUsers) => {
+  document.getElementById("start-game").innerHTML = `<button id = "host-start-button" onclick = "restart()">Start Game!</button>`;
+
 })
 
 // Listener for the chatting feature
@@ -211,6 +244,7 @@ function roundTransitions() {
 // Listener to restart the game
 
 function restart() {
+  document.getElementById("scores-from-round").innerHTML = "";
   socket.emit("restart");
   
 }

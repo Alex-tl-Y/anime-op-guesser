@@ -87,20 +87,25 @@ io.on("connection", (socket) => {
 
   socket.on("guess", (guess) => {
     allUsers.forEach((user) => {
-      if (socket.id === user.id && !correctUsers.includes(user)){
-        if (guess.toUpperCase() === chosenSong.toUpperCase()) {
-          user.score += allUsers.length - correctUsers.length;
-          user.score_from_round = allUsers.length - correctUsers.length;
-          correctUsers.push(user);
-          io.to("playing round").emit("correct", user.name);
-          io.to("playing round").emit("green-scoreboard", user);
-          io.to(socket.id).emit("revealed-answer", chosenSong);
-        } 
+      if (socket.id === user.id){
+        if (!correctUsers.includes(user)){
+          if (guess.toUpperCase() === chosenSong.toUpperCase()) {
+            user.score += allUsers.length - correctUsers.length;
+            user.score_from_round = allUsers.length - correctUsers.length;
+            correctUsers.push(user);
+            io.to("playing round").emit("correct", user.name);
+            io.to("playing round").emit("green-scoreboard", user);
+            io.to(socket.id).emit("revealed-answer", chosenSong);
+          } 
 
-        else{
-          io.to("playing round").emit("guess", guess, user.name);
+          else{
+            io.to("playing round").emit("guess", guess, user.name);
+          }
+
         }
-
+        else {
+          io.to(socket.id).emit("already-correct");
+        }
       }
     })
 
@@ -203,7 +208,9 @@ io.on("connection", (socket) => {
           }
 
           else{
-            io.to("playing round").emit("game over", allUsers);
+            let sortedList = sortPosition(allUsers)
+            io.to("playing round").emit("game over", sortedList);
+            io.to(socket.id).emit("game-over-host");
             return;
           }
           

@@ -175,7 +175,7 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
-          if (round < 5){
+          if (round < 10){
             correctUsers = [];
             round ++;
             io.to("playing round").emit("round start", round);
@@ -202,7 +202,7 @@ io.on("connection", (socket) => {
             io.to("playing round").emit("round-transitions", allUsers, true, chosenSong);
           }
 
-          else if (0 < round && round < 5){
+          else if (0 < round && round < 10){
             let sortedList = sortScoreFromRound(allUsers);
             io.to("playing round").emit("round-transitions", sortedList, false, chosenSong);
             io.to("playing round").emit("revealed-answer", chosenSong);

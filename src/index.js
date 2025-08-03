@@ -128,6 +128,8 @@ socket.on("round-transitions", (allUsers, firstTransition, songInRound) => {
       document.getElementById("scores-from-round").innerHTML += `<p>${element.name} : + ${element.score_from_round}</p>`;
   })
     document.getElementById("status-message").innerHTML = `<p id = "song-round"> ${songInRound} was the song! </p>`;
+    let sfx = new Audio ("/sfx/transition-sound.mp3");
+    sfx.play();
   }
   else{
     document.getElementById("status-message").innerHTML += `<p id = "status-message">Loading Song ...<p>`;
@@ -159,6 +161,10 @@ socket.on("stop music", () => {
 
 socket.on("round start", (roundNumber) => {
   document.getElementById("round-number").innerHTML = "Round" + " " + roundNumber;
+
+  let sfx = new Audio ("/sfx/round-start.mp3");
+  sfx.play();
+
   playMusic();
   timerCountdown();
 })

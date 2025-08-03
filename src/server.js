@@ -199,16 +199,17 @@ io.on("connection", (socket) => {
           sortPosition(allUsers);
           io.to("playing round").emit("scoreboard", allUsers);
           if (round == 0) {
-            io.to("playing round").emit("round-transitions", allUsers, true);
+            io.to("playing round").emit("round-transitions", allUsers, true, chosenSong);
           }
 
           else if (0 < round && round < 5){
             let sortedList = sortScoreFromRound(allUsers);
-            io.to("playing round").emit("round-transitions", sortedList, false);
+            io.to("playing round").emit("round-transitions", sortedList, false, chosenSong);
+            io.to("playing round").emit("revealed-answer", chosenSong);
           }
 
           else{
-            let sortedList = sortPosition(allUsers)
+            let sortedList = rotateByPosition(allUsers)
             io.to("playing round").emit("game over", sortedList);
             io.to(socket.id).emit("game-over-host");
             return;
@@ -288,6 +289,24 @@ function sortPosition(userList) {
       sortedList[i].position = userPosition;
     }
   }
+}
+
+function rotateByPosition(userList) {
+  let sortedList = userList.slice();
+
+  for (let i = 0; i < sortedList.length; i ++) {
+    let smallestIndex = i;
+    for (let j = i + 1; j < sortedList.length; j ++) {
+      if (sortedList[smallestIndex].position > sortedList[j].position) {
+        smallestIndex = j;
+      }
+    }
+    let smallestPosition = sortedList[smallestIndex];
+    sortedList[smallestIndex] = sortedList[i];
+    sortedList[i] = smallestPosition;
+  }
+
+  return sortedList;
 }
 
 server.listen(3000, () => {

@@ -26,6 +26,7 @@ button:hover {
   width: 150px;
   font-size: 24px;
   text-align: center;
+  margin: auto;
 }
 
 #letter-hint {
@@ -34,12 +35,14 @@ button:hover {
   font-weight: bold;
   font-family: monospace;
   text-align: center;
+  margin: auto;
 }
 
 #timer-display {
   width: 40px;
   font-size: 24px;
   text-align: center;
+  margin: auto;
 }
 
 #bottom-half {

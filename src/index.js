@@ -122,14 +122,18 @@ socket.on("start game", () => {
   roundTransitions();
 })
 
-socket.on("round-transitions", (allUsers, firstTransition) => {
+socket.on("round-transitions", (allUsers, firstTransition, songInRound) => {
   if (!firstTransition) {
     allUsers.forEach((element) => {
       document.getElementById("scores-from-round").innerHTML += `<p>${element.name} : + ${element.score_from_round}</p>`;
   })
+    document.getElementById("status-message").innerHTML = `<p id = "song-round"> ${songInRound} was the song! </p>`;
   }
-  document.getElementById("status-message").innerHTML = `<p id = "status-message">Loading Song ...<p>`;
+  else{
+    document.getElementById("status-message").innerHTML += `<p id = "status-message">Loading Song ...<p>`;
+  }
 
+  
 })
 
 socket.on("finished-round-transitions-screen", () => {

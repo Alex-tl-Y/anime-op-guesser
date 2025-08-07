@@ -84,7 +84,7 @@ socket.on("already-correct", () => {
   let chatHistory = document.getElementById("chat-history");
   const chatMessage = document.createElement("li");
   chatMessage.textContent = "You already guessed correctly!";
-  chatMessage.style.color = "darkyellow";
+  chatMessage.style.color = "#e2cb00";
   chatHistory.appendChild(chatMessage);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 
@@ -94,7 +94,25 @@ socket.on("join-message", (username) => {
   let chatHistory = document.getElementById("chat-history");
   const chatMessage = document.createElement("li");
   chatMessage.textContent = username + " joined the game!";
-  chatMessage.style.color = "lightgreen";
+  chatMessage.style.color = "#56CE27";
+  chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+})
+
+socket.on("disconnect-message", (username) => {
+  let chatHistory = document.getElementById("chat-history");
+  const chatMessage = document.createElement("li");
+  chatMessage.textContent = username + " has disconnected!";
+  chatMessage.style.color = "lightcoral";
+  chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+})
+
+socket.on("new-host", (username) => {
+  let chatHistory = document.getElementById("chat-history");
+  const chatMessage = document.createElement("li");
+  chatMessage.textContent = username + " is now the host!";
+  chatMessage.style.color = "#ffa844";
   chatHistory.appendChild(chatMessage);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 })
@@ -107,15 +125,26 @@ socket.on("guess", (message, username) => {
   chatHistory.scrollTop = chatHistory.scrollHeight;
 })
 
+socket.on("close-guess", (message) => {
+  let chatHistory = document.getElementById("chat-history");
+  const chatMessage = document.createElement('li');
+  chatMessage.textContent = message + " was a close guess!";
+  chatMessage.style.color = "#e2cb00";
+  chatHistory.appendChild(chatMessage);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+})
 socket.on("allow-start", () => {
   const startButton = document.getElementById("start-button")
   startButton.id = "host-start-button";
 })
 
+socket.on("wait-round", () => {
+  document.getElementById("status-message").innerHTML = "Song in Progress. Wait for the next round...";
+})
+
 socket.on("start game screen", () => {
   document.getElementById("start-game").innerHTML = "";
-  const startButton = document.getElementById("start-game");
-  startButton.innerHTML = ""; 
+ 
 })
 
 socket.on("start game", () => {
@@ -147,16 +176,24 @@ socket.on("finished-round-transitions", () => {
   roundsStart();
 })
 
-socket.on("play music", (song, underscoreName) => {
+socket.on("play music", (song, underscoreName, lettersPerWord) => {
+  let preventCheat = document.getElementById("prevent-cheat");
+  preventCheat.innerHTML =  `<iframe width="0" height="0" src="https://www.youtube.com/embed/fx2Z5ZD_Rbo?si=8m4_223i4yZOSl51&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
   let frame = document.getElementById('embeded song');
   frame.innerHTML = `<iframe width="0" height="0" src="${song.songLink}&amp;controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
   document.getElementById("letter-hint").innerHTML = underscoreName;
+
+  lettersPerWord.forEach((letters) => {
+    document.getElementById("letter-hint").innerHTML += "\u00A0\u00A0" + letters;
+  })
 })
 
 socket.on("stop music", () => {
   let frame = document.getElementById('embeded song');
 
   frame.innerHTML = '';
+
+  document.getElementById("prevent-cheat").innerHTML = '';
 })
 
 socket.on("round start", (roundNumber) => {
@@ -183,6 +220,9 @@ socket.on("timer-countdown", (sec) => {
 
 socket.on("game over", (allUsers) => {
   document.getElementById("start-game").innerHTML = `<button id = "start-button" onclick = "restart()">Start Game!</button>`;
+  document.getElementById("round-number").innerHTML = '';
+  document.getElementById("letter-hint").innerHTML = '';
+  
   allUsers.forEach((user) => {
     if (user.position == 1) {
       document.getElementById("scores-from-round").innerHTML += `<p> 1st Place (The KING): ${user.name}</p>`
@@ -203,7 +243,7 @@ socket.on("game over", (allUsers) => {
   })
 })
 
-socket.on("game-over-host", (allUsers) => {
+socket.on("game-over-host", () => {
   document.getElementById("start-game").innerHTML = `<button id = "host-start-button" onclick = "restart()">Start Game!</button>`;
 
 })

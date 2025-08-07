@@ -81,7 +81,8 @@ io.on("connection", (socket) => {
     io.to("playing round").emit("join-message", username)
 
     if (isPlaying) {
-      io.to("playing round").emit("start game screen");
+      io.to(socket.id).emit("start game screen");
+      io.to(socket.id).emit("wait-round");
     }
   })
 
@@ -100,8 +101,38 @@ io.on("connection", (socket) => {
 
           else{
             io.to("playing round").emit("guess", guess, user.name);
-          }
+            let incorrectChar = 0
 
+            let lengthDif = Math.abs(chosenSong.length - guess.length);
+            if (lengthDif == 0) {
+              for (let i = 0; i < chosenSong.length; i ++) {
+                if (chosenSong.charAt(i).toUpperCase() !== guess.charAt(i).toUpperCase()) {
+                  incorrectChar ++;
+                }
+              } 
+              if (incorrectChar == 1) {
+                io.to(socket.id).emit("close-guess", guess); 
+              }
+                          
+            }
+
+            else if (lengthDif == 1) {
+              let i = 0
+              let j = i;
+              for (i; i < Math.min(chosenSong.length, guess.length); i++) {
+                if (chosenSong.charAt(i).toUpperCase() !== guess.charAt(j).toUpperCase()) {
+                  incorrectChar ++;
+                  if (incorrectChar < 2) {
+                    j ++;
+                  }
+                }
+                j++;
+              }
+              if (isPlaying && incorrectChar < 2) {
+                io.to(socket.id).emit("close-guess", guess);
+              }
+            }           
+          }
         }
         else {
           io.to(socket.id).emit("already-correct");
@@ -136,17 +167,34 @@ io.on("connection", (socket) => {
           // Display the name of the song with underscores
           
           let underscoreName = '';
+          let lettersPerWord = [];
+          let letters = 0;
+          let regex = /[^a-zA-Z0-9]/;
 
           for (let i = 0; i < chosenSong.length; i ++) {
             if (chosenSong.charAt(i) !== " ") {
-              underscoreName += "_ ";
+              if (regex.test(chosenSong.charAt(i))) {
+                underscoreName += chosenSong.charAt(i) +"\u00A0";
+                lettersPerWord.push(letters);
+                letters = 0;
+              }
+
+              else {
+                underscoreName += "_ ";
+                letters ++;
+              }
             }
             else {
               underscoreName += "\u00A0\u00A0\u00A0";
+              lettersPerWord.push(letters);
+              letters = 0;
             }
           }
 
-          io.to("playing round").emit("play music", song, underscoreName);        
+          lettersPerWord.push(letters);
+          letters = 0;
+
+          io.to("playing round").emit("play music", song, underscoreName, lettersPerWord);        
         }
       }
     })
@@ -182,7 +230,11 @@ io.on("connection", (socket) => {
           }
 
           else{
-            io.to("playing round").emit("game over", allUsers);
+            isPlaying = false;
+            let sortedList = rotateByPosition(allUsers)
+            io.to("playing round").emit("game over", sortedList);
+            io.to(socket.id).emit("game-over-host");
+            return;
           }         
         }
       }
@@ -194,7 +246,7 @@ io.on("connection", (socket) => {
 
   socket.on("round-transitions", () => {
     allUsers.forEach((user) => {
-      if (socket.id === user.id){
+      if (socket.id === user.id && isPlaying){
         if (user.isHost){
           sortPosition(allUsers);
           io.to("playing round").emit("scoreboard", allUsers);
@@ -202,17 +254,10 @@ io.on("connection", (socket) => {
             io.to("playing round").emit("round-transitions", allUsers, true, chosenSong);
           }
 
-          else if (0 < round && round < 10){
+          else if (0 < round && round <= 10){
             let sortedList = sortScoreFromRound(allUsers);
             io.to("playing round").emit("round-transitions", sortedList, false, chosenSong);
             io.to("playing round").emit("revealed-answer", chosenSong);
-          }
-
-          else{
-            let sortedList = rotateByPosition(allUsers)
-            io.to("playing round").emit("game over", sortedList);
-            io.to(socket.id).emit("game-over-host");
-            return;
           }
           
           let sec = 4;
@@ -238,6 +283,7 @@ io.on("connection", (socket) => {
           if (user.isHost){
             round = 0;
             correctUsers = [];
+            isPlaying = true;
             
             io.to("playing round").emit("scoreboard", allUsers);
             io.to("playing round").emit("start game screen");
@@ -250,10 +296,21 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     allUsers.forEach((user) => {
       if (socket.id === user.id) {
+        if (user.isHost && allUsers.length > 1) {
+          allUsers[1].isHost = true;
+          io.to("playing round").emit("new-host", allUsers[1].name)
+        }
         allUsers = allUsers.filter(element => element !== user);
         io.to("playing round").emit("scoreboard", allUsers);
+        io.to("playing round").emit("disconnect-message", user.name);
       }
     })
+
+    if (allUsers.length == 0) {
+      isPlaying = false;
+      round = 0;
+      io.to("playing round").emit("game over", allUsers)
+    }
   })
 })
 

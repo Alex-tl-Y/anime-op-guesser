@@ -39,12 +39,17 @@ export const songList = [{
 },
 
 {
+  name: 'Bakemonogatari',
+  songLink: 'https://www.youtube.com/embed/uKxyLmbOc0Q?si=2v4v3L3yKvPtUI4j'
+},
+
+{
   name: 'Hunter X Hunter',
   songLink: 'https://www.youtube.com/embed/faqmNf_fZlE?si=Pe80fCQ06XlthqUr'
 },
 
 {
-  name: 'K ON',
+  name: 'K-ON',
   songLink: 'https://www.youtube.com/embed/qN41mx4tA0I?si=HX0_znZ2BsCUME4g'
 },
 
@@ -171,6 +176,106 @@ export const songList = [{
 {
   name: 'Ranking of Kings',
   songLink: 'https://www.youtube.com/embed/s5SSAXK6bQE?si=qa3_oDcwSNDRvpeM'
+},
+
+{
+  name: 'Kaguya-sama: Love is War',
+  songLink: 'https://www.youtube.com/embed/lTlzDfhPtFA?si=JFqiwTNkm-X61tT1'
+},
+
+{
+  name: 'Kaguya-sama: Love is War',
+  songLink: 'https://www.youtube.com/embed/WZof19wk4Ec?si=X5scmAPYzj4vKHH_'
+},
+
+{
+  name: 'March comes in like a lion',
+  songLink: 'https://www.youtube.com/embed/PKjbF2a90Fo?si=TLp3RI7HhcmGxwm4'
+},
+
+{
+  name: 'Vinland Saga',
+  songLink: 'https://www.youtube.com/embed/l5wAdQ-UkWY?si=X3egGmT3U3pPFGzW'
+},
+
+{
+  name: 'Vinland Saga',
+  songLink: 'https://www.youtube.com/embed/nkTj2Hk6nEc?si=a3ebL5pQkxD0zUUp'
+},
+
+{
+  name: 'Demon Slayer',
+  songLink: 'https://www.youtube.com/embed/pmanD_s7G3U?si=wA7MrOI3dyDyfvEY'
+},
+
+{
+  name: 'Demon Slayer',
+  songLink: 'https://www.youtube.com/embed/st4wcpjZeQQ?si=nPKFmc4nmbZll81K'
+},
+
+{
+  name: 'Gintama',
+  songLink: 'https://www.youtube.com/embed/GQRMESLHVc0?si=x-jy8dwPSQ3nRN3V'
+},
+
+{
+  name: 'Violet Evergarden',
+  songLink: 'https://www.youtube.com/embed/ZAKuyZEyZjY?si=atBTtCb3wujZZTzM'
+},
+
+{
+  name: 'Oregairu',
+  songLink: 'https://www.youtube.com/embed/wbcSa2RWpNw?si=sjIemE2SBtnIqYH1'
+},
+
+{
+  name: 'Oregairu',
+  songLink: 'https://www.youtube.com/embed/M8FLKLeoFng?si=vNJ0T7HHkAuIPEUj'
+},
+
+{
+  name: 'The Promised Neverland',
+  songLink: 'https://www.youtube.com/embed/yB2t5y7ujlg?si=ttjNe11nmtnIqmK2'
+},
+
+{
+  name: 'Haikyu',
+  songLink: 'https://www.youtube.com/embed/7aNg8cV65Os?si=meOiJ5BLOMwVgDfS'
+},
+
+{
+  name: 'One Punch Man',
+  songLink: 'https://www.youtube.com/embed/atxYe-nOa9w?si=b2mReq2U4PUMBdsU'
+},
+
+{
+  name: 'Call of the Night',
+  songLink: 'https://www.youtube.com/embed/L96VbQ9ytWk?si=8TSHipI6ZiKIJdz8'
+},
+
+{
+  name: 'Chainsaw Man',
+  songLink: 'https://www.youtube.com/embed/494STlRAn3A?si=pmWqPCUMoOnEikgh'
+},
+
+{
+  name: 'Spy x Family',
+  songLink: 'https://www.youtube.com/embed/Hlw8dTz_iq0?si=sNspAPSb0loffS3u'
+},
+
+{
+  name: 'Solo Leveling',
+  songLink: 'https://www.youtube.com/embed/XqD0oCHLIF8?si=M4OyDEcr3CrnvH5B'
+},
+
+{
+  name: 'Fire Force',
+  songLink: 'https://www.youtube.com/embed/JBqxVX_LXvk?si=nbbFGNK__UoUcwM2'
+},
+
+{
+  name: 'Bocchi the Rock',
+  songLink: 'https://www.youtube.com/embed/dlSbEP4V-gI?si=fsMnXU30HXKJ3ksC'
 }
 ];
 

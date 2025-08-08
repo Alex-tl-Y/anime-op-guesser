@@ -223,8 +223,8 @@ io.on("connection", (socket) => {
     allUsers.forEach((user) => {
       if (socket.id === user.id){
         if (user.isHost){
+          correctUsers = [];
           if (round < 10){
-            correctUsers = [];
             round ++;
             io.to("playing round").emit("round start", round);
           }

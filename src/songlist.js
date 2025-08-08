@@ -189,6 +189,11 @@ export const songList = [{
 },
 
 {
+  name: 'Kaguya-sama: Love is War',
+  songLink: 'https://www.youtube.com/embed/j3p6sXq_uUM?si=Yp91TZh_mw9aFQw5'
+},
+
+{
   name: 'March comes in like a lion',
   songLink: 'https://www.youtube.com/embed/PKjbF2a90Fo?si=TLp3RI7HhcmGxwm4'
 },
@@ -276,6 +281,131 @@ export const songList = [{
 {
   name: 'Bocchi the Rock',
   songLink: 'https://www.youtube.com/embed/dlSbEP4V-gI?si=fsMnXU30HXKJ3ksC'
+},
+
+{
+  name: 'Food Wars',
+  songLink: 'https://www.youtube.com/embed/vV3l_1j8pPE?si=Rw1nvSCXbGpDkCpf'
+},
+
+{
+  name: 'Blue Lock',
+  songLink: 'https://www.youtube.com/embed/5Iv3Fi8eb7w?si=JqPdbgG3UxIgGmDl'
+},
+
+{
+  name: 'Horimiya',
+  songLink: 'https://www.youtube.com/embed/7t3GuI_9YFw?si=Gdw4yZIKOyVkqAnI'
+},
+
+{
+  name: 'Sword Art Online',
+  songLink: 'https://www.youtube.com/embed/1oOBjyOKu2o?si=IMYyrkY-s6R3zcOZ'
+},
+
+{
+  name: 'Sword Art Online',
+  songLink: 'https://www.youtube.com/embed/t9b4hzYdHNE?si=GldlzQlRvUXgDhsw'
+},
+
+{
+  name: 'Sword Art Online',
+  songLink: 'https://www.youtube.com/embed/Xmppa9UQe9I?si=4m1MxLxvEpZfEemS'
+},
+
+{
+  name: 'Anohana',
+  songLink: 'https://www.youtube.com/embed/sGzYDL9otb8?si=zZKYzZ4hpLCWhSkD'
+},
+
+{
+  name: 'Guilty Crown',
+  songLink: 'https://www.youtube.com/embed/xmh3mNvgJBs?si=CUP1oA40Vcxb_JYi'
+},
+
+{
+  name: 'Odd Taxi',
+  songLink: 'https://www.youtube.com/embed/jX-Ry1VxeDQ?si=0pg5J3ERurXPSmky'
+},
+
+{
+  name: 'Fullmetal Alchemist: Brotherhood',
+  songLink: 'https://www.youtube.com/embed/elyXcwunIYA?si=6elO-c3nCv1ESaX4'
+},
+
+{
+  name: 'Death Parade',
+  songLink: 'https://www.youtube.com/embed/Ca5Tf5BDSYI?si=6FXHhszpZvIQi2-C'
+},
+
+{
+  name: 'Serial Experiments Lain',
+  songLink: 'https://www.youtube.com/embed/MM8RufZr5lw?si=dReKU216MxffdeFx'
+},
+
+{
+  name: 'Rascal Does Not Dream of Bunny Girl Senpai',
+  songLink: 'https://www.youtube.com/embed/HIoeEngUiKU?si=_3MF-rqc-bn5C9h1'
+},
+
+{
+  name: 'Steins Gate 0',
+  songLink: 'https://www.youtube.com/embed/1xJbdY9B3A8?si=TEmzGSSmGi0mdT37'
+},
+
+{
+  name: 'Charlotte',
+  songLink: 'https://www.youtube.com/embed/kYm-0pr5t50?si=F6tSjd3iw8DLCPL8'
+},
+
+{
+  name: 'Erased',
+  songLink: 'https://www.youtube.com/embed/fodAJ-1dN3I?si=umaD7rorbhX-QkMm'
+},
+
+{
+  name: 'Tonikawa: Over the Moon For You',
+  songLink: 'https://www.youtube.com/embed/vQiodbKEW6s?si=YcvBwHqf4r4A-qEK'
+},
+
+{
+  name: 'Tower of God',
+  songLink: 'https://www.youtube.com/embed/apII5VFTce0?si=yItg7B3T6lqeOMcY'
+},
+
+{
+  name: 'Golden Time',
+  songLink: 'https://www.youtube.com/embed/7X-QtQqbWR0?si=Lm9qPdt0JMDOISgS'
+},
+
+{
+  name: 'Carole and Tuesday',
+  songLink: 'https://www.youtube.com/embed/jsNm1LQUrXM?si=SQPJna60mVeSoxuW'
+},
+
+{
+  name: 'Nana',
+  songLink: 'https://www.youtube.com/embed/1-3efFGEnr8?si=1K5Fb7DUZpA59wMI'
+},
+
+{
+  name: 'After the Rain',
+  songLink: 'https://www.youtube.com/embed/2ukU1meKcD0?si=UEGIrTqJhpG9qhVY'
+},
+
+{
+  name: 'Chihayafuru' ,
+  songLink: 'https://www.youtube.com/embed/tgTaux0p7gI?si=XXFcrCUvUbJtq6P8'
+},
+
+{
+  name: 'Your Lie in April',
+  songLink: 'https://www.youtube.com/embed/fWRPihlt2ho?si=yOqLwnqVa1UH7zog'
+},
+
+{
+  name: 'Alya Sometimes Hides Her Feelings in Russian',
+  songLink: 'https://www.youtube.com/embed/MBM7qyH-YDY?si=WvGPLnAspRhLkfr3'
 }
 ];
 

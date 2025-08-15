@@ -186,7 +186,9 @@ io.on("connection", (socket) => {
             }
             else {
               underscoreName += "\u00A0\u00A0\u00A0";
-              lettersPerWord.push(letters);
+              if (letters > 0) {
+                lettersPerWord.push(letters);
+              }
               letters = 0;
             }
           }
@@ -333,11 +335,24 @@ function sortScoreFromRound(userList) {
 }
 
 function sortPosition(userList) {
-  let sortedList = sortScoreFromRound(userList);
+  let sortedList = userList.slice();
+
+    for (let i = 0; i < sortedList.length; i ++) {
+      let largestIndex = i;
+      for (let j = i + 1; j < sortedList.length; j ++) {
+        if (sortedList[largestIndex].score < sortedList[j].score) {
+          largestIndex = j;
+        }
+      }
+      let largestValue = sortedList[largestIndex];
+      sortedList[largestIndex] = sortedList[i];
+      sortedList[i] = largestValue;
+  }
+
   let userPosition = 1;
   sortedList[0].position = 1;
   for (let i = 1; i < sortedList.length; i ++ ) {
-    if (sortedList[i - 1].score != sortedList[i].score) {
+    if (sortedList[i - 1].score > sortedList[i].score) {
       userPosition += 1;
       sortedList[i].position = userPosition;
     }

@@ -79,6 +79,11 @@ export const songList = [{
 },
 
 {
+  name: 'Noragami',
+  songLink: 'https://www.youtube.com/embed/aZenmeRytEM?si=H0tb3tIOG2QjDcPC'
+},
+
+{
   name: 'No Game No Life',
   songLink: 'https://www.youtube.com/embed/6CBp4qylX6I?si=y2CV6uzsM7AQuylv'
 },
@@ -91,6 +96,11 @@ export const songList = [{
 {
   name: 'The Apothecary Diaries',
   songLink: 'https://www.youtube.com/embed/EQ-DKvLQlyQ?si=GUGzVtcI4khHunyF'
+},
+
+{
+  name: 'The Apothecary Diaries',
+  songLink: 'https://www.youtube.com/embed/sYC5BfJy2nw?si=6njYosCvwaqzmxOX'
 },
 
 {
@@ -121,6 +131,21 @@ export const songList = [{
 {
   name: 'Attack on Titan',
   songLink: 'https://www.youtube.com/embed/LKP-vZvjbh8?si=XNGj4j8yyRu1iZY2'
+},
+
+{
+  name: 'Attack on Titan',
+  songLink: 'https://www.youtube.com/embed/P75q_3Qlrqg?si=ddsUnL6SIFGI4JSr'
+},
+
+{
+  name: 'Attack on Titan',
+  songLink: 'https://www.youtube.com/embed/EtjQVqXUPHo?si=VWx-1jDodZkeV4Wv'
+},
+
+{
+  name: 'Attack on Titan',
+  songLink: 'https://www.youtube.com/embed/0dK7JgKivQM?si=3N6oLIbwFwfgOs7Y'
 },
 
 {
@@ -216,6 +241,11 @@ export const songList = [{
 {
   name: 'Demon Slayer',
   songLink: 'https://www.youtube.com/embed/st4wcpjZeQQ?si=nPKFmc4nmbZll81K'
+},
+
+{
+  name: 'Demon Slayer',
+  songLink: 'https://www.youtube.com/embed/OWBCIRhly4U?si=rzlRDeiLKDZFTV3r'
 },
 
 {
@@ -406,6 +436,71 @@ export const songList = [{
 {
   name: 'Alya Sometimes Hides Her Feelings in Russian',
   songLink: 'https://www.youtube.com/embed/MBM7qyH-YDY?si=WvGPLnAspRhLkfr3'
+},
+
+{
+  name: 'Cardcaptor Sakura',
+  songLink: 'https://www.youtube.com/embed/QDezQD57h-g?si=3Qnc1DpESWVvpbTS"'
+},
+
+{
+  name: 'Trigun',
+  songLink: 'https://www.youtube.com/embed/4OxFSy8G5wk?si=VlTOMQQWx8p_WOdS'
+},
+
+{
+  name: 'Clannad: After Story',
+  songLink: 'https://www.youtube.com/embed/PozVlhR20TE?si=hZ3xtPxaoHbfD6KC'
+},
+
+{
+  name: 'The Melancholy of Haruhi Suzumiya',
+  songLink: 'https://www.youtube.com/embed/C337shIT9LI?si=GFa1HUYdzvp3cOTH'
+},
+
+{
+  name: 'Nichijou',
+  songLink: 'https://www.youtube.com/embed/qUk1ZoCGqsA?si=HFADk02Lp06dQZtn'
+},
+
+{
+  name: 'Psycho Pass',
+  songLink: 'https://www.youtube.com/embed/SJ-aUXmJM8Q?si=RoQtvEMgEJXdu1c0'
+},
+
+{
+  name: `Komi Can't Communicate `,
+  songLink: 'https://www.youtube.com/embed/xHlx3rx5Bew?si=Un7Tx-61VQy7-roa'
+},
+
+{
+  name: 'Dandadan', 
+  songLink: 'https://www.youtube.com/embed/a4na2opArGY?si=0OAcnnIP_y5hJABd'
+},
+
+{
+  name: 'Mashle: Magic and Muscles',
+  songLink: 'https://www.youtube.com/embed/210R0ozmLwg?si=APHqBWVkNr4YgfJD'
+},
+
+{
+  name: 'The Quintessential Quintuplets',
+  songLink: 'https://www.youtube.com/embed/FKIT6G_lw7c?si=M5qeAPsI6aLijFQb'
+}, 
+
+{
+  name: 'The Quintessential Quintuplets',
+  songLink: 'https://www.youtube.com/embed/2oQSUoGhEBg?si=_RS_bwFXgNAGkTOP'
+},
+
+{
+  name: 'My Love Story with Yamada-kun at Lv999',
+  songLink: 'https://www.youtube.com/embed/mkxZXJN3zjI?si=nCQwNBxU_Tg5tt4g'
+},
+
+{
+  name: 'Yamada-kun and the Seven Witches',
+  songLink: 'https://www.youtube.com/embed/BHncfQjJb_w?si=LWMmHQwXfkRyGjOQ'
 }
 ];
 

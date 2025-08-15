@@ -145,9 +145,13 @@ button:hover {
 }
 
 #chat-history > li {
-  height: 24px;
+  padding: 4px;
   align-content: center;
   font-size: 14px;
+  display: block;           
+  width: 100%;              
+  box-sizing: border-box;   
+  overflow-wrap: break-word;
 }
 
 #chat-history > li:nth-child(odd) { 

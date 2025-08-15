@@ -73,7 +73,7 @@ socket.on("green-scoreboard", (user) => {
   const listItems = scoreboard.querySelectorAll("li");
 
   listItems.forEach((li) => {
-    if (li.textContent.includes(user.name)) {
+    if (li.textContent.substring(4 + user.position.toString().length, 4 + user.position.toString().length + user.name.length) === user.name) {
       li.style.background = 'lightgreen';
     }
   })
@@ -120,7 +120,7 @@ socket.on("new-host", (username) => {
 socket.on("guess", (message, username) => {
   let chatHistory = document.getElementById("chat-history");
   const chatMessage = document.createElement('li');
-  chatMessage.textContent = username + ": " + message;
+  chatMessage.innerHTML = `<b>${username}: </b>` + message;
   chatHistory.appendChild(chatMessage);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 })
@@ -159,7 +159,15 @@ socket.on("round-transitions", (allUsers, firstTransition, songInRound) => {
     document.getElementById("status-message").innerHTML = `<p id = "song-round"> ${songInRound} was the song! </p>`;
     let sfx = new Audio ("/sfx/transition-sound.mp3");
     sfx.play();
+
+    let chatHistory = document.getElementById("chat-history");
+    const chatMessage = document.createElement("li");
+    chatMessage.textContent = "The song was " + songInRound;
+    chatMessage.style.color = "#56CE27";
+    chatHistory.appendChild(chatMessage);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
   }
+
   else{
     document.getElementById("status-message").innerHTML += `<p id = "status-message">Loading Song ...<p>`;
   }

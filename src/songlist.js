@@ -440,7 +440,7 @@ export const songList = [{
 
 {
   name: 'Cardcaptor Sakura',
-  songLink: 'https://www.youtube.com/embed/QDezQD57h-g?si=3Qnc1DpESWVvpbTS"'
+  songLink: 'https://www.youtube.com/embed/QDezQD57h-g?si=3Qnc1DpESWVvpbTS'
 },
 
 {
@@ -469,7 +469,7 @@ export const songList = [{
 },
 
 {
-  name: `Komi Can't Communicate `,
+  name: `Komi Can't Communicate`,
   songLink: 'https://www.youtube.com/embed/xHlx3rx5Bew?si=Un7Tx-61VQy7-roa'
 },
 

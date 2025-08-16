@@ -260,6 +260,7 @@ io.on("connection", (socket) => {
             let sortedList = sortScoreFromRound(allUsers);
             io.to("playing round").emit("round-transitions", sortedList, false, chosenSong);
             io.to("playing round").emit("revealed-answer", chosenSong);
+            chosenSong = '';
           }
           
           let sec = 4;

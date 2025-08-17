@@ -59,6 +59,11 @@ export const songList = [{
 },
 
 {
+  name: 'Fate/Zero',
+  songLink: 'https://www.youtube.com/embed/GJ4yehnerHQ?si=NrsYXsQeRKkYfJnk'
+},
+
+{
   name: 'Mirai Nikki',
   songLink: 'https://www.youtube.com/embed/LLDA9cfRLlg?si=znxjxXzH82IxI-1T'
 },
@@ -501,6 +506,66 @@ export const songList = [{
 {
   name: 'Yamada-kun and the Seven Witches',
   songLink: 'https://www.youtube.com/embed/BHncfQjJb_w?si=LWMmHQwXfkRyGjOQ'
+},
+
+{
+  name: 'Lycoris Recoil',
+  songLink: 'https://www.youtube.com/embed/VxR_BYPG7v4?si=0hlQqJSAlmozNS8U'
+},
+
+{
+  name: 'Higehiro',
+  songLink: 'https://www.youtube.com/embed/ENqgUdKVU1s?si=B0Uzz2fOmfMmrl_O'
+},
+
+{
+  name: 'Beastars',
+  songLink: 'https://www.youtube.com/embed/bgo9dJB_icw?si=q2a0TolvyNdyaDFW'
+},
+
+{
+  name: 'Beastars',
+  songLink: 'https://www.youtube.com/embed/-5M4lbEpn6c?si=VleDRqo3vkSW7-os'
+},
+
+{
+  name: 'Bleach',
+  songLink: 'https://www.youtube.com/embed/wW9TwZdWpjw?si=g-wKDx4wBWFyncmw'
+},
+
+{
+  name: 'Ya Boy Kongming',
+  songLink: 'https://www.youtube.com/embed/gNn9NxZH2Vo?si=lp536gfJuKQaZdCy'
+},
+
+{
+  name: 'Fruits Basket',
+  songLink: 'https://www.youtube.com/embed/ad7E-dgeYIA?si=HDQGqzOo4npghvkI'
+},
+
+{
+  name: 'Fruits Basket',
+  songLink: 'https://www.youtube.com/embed/jI7hI9yUXL0?si=UghOZoAjPGdrxhW-'
+},
+
+{
+  name: 'The Dangers in My Heart',
+  songLink: 'https://www.youtube.com/embed/LFP9sTO2lzM?si=17Kg4mGwdj3mlOue'
+},
+
+{
+  name: '86',
+  songLink: 'https://www.youtube.com/embed/eZIMFWAxMxQ?si=GQA-NUOYQ-OZmgfN'
+},
+
+{
+  name: 'Cyberpunk: Edgerunners',
+  songLink: 'https://www.youtube.com/embed/OifiVCnFKzM?si=hqwyBMGu4mCU3uRb'
+},
+
+{
+  name: 'Summer Time Rendering',
+  songLink: 'https://www.youtube.com/embed/8wjHaeCgbps?si=XBs5-5xQcmJAUTZB'
 }
 ];
 
